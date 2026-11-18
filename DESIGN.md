@@ -1,14 +1,14 @@
-# Design direction — Public Law Library
+# Design direction — Legal Knowledge Base
 
-Legal Knowledge Base uses the visual grammar of a public law library: dark
-ink-blue shelves, parchment pages, red pencil marks, catalogue numbers, and a
-clear index. It avoids courtroom drama and keeps the reading task primary.
+Five self-authored, plain-language orientation notes. Since 2026-11-19 the site uses the shared **Reader
+shell** (see `READER.md`): `app/reader-shell.css`, `components/reader-shell.tsx` and
+`tests/reader-shell.test.tsx` are copied byte for byte from content-techblog-web. Geist via `next/font`
+(variable on `<html>`), `--rs-*` tokens in light and dark; no site colour tokens remain.
 
-- Palette: parchment `#f2ede2`, ink-blue `#183047`, red pencil `#b24b45`,
-  slate `#6d7c86`.
-- Typography: bookish serif for entry titles; compact sans for catalogue data.
-- Structure: search and topic index in a narrow catalogue rail, reading sheet
-  beside it, with a visible scope note.
-- Interaction: search narrows the index; selecting an entry updates the sheet.
-- Responsive rule: catalogue rail collapses above the reading sheet on mobile.
-- Motion: search results settle with a short line-draw; no decorative loops.
+- Structure: one h1 and a lede that states the boundary (general notes, not current legal advice), a live
+  search (not a form), topic-family chips (`aria-pressed`) whose counts follow the search, a `role="status"`
+  count, then every entry with its meaning, document touchpoint and next question in place.
+- Empty state: "No entries match" with a Show all entries button that clears the search and the family.
+- No decorative watermark and no link-looking text that is not a link.
+- Floor: text ≥ 12px, controls ≥ 44px, 3px focus ring (also on the search field), 4.5:1 text contrast, forced
+  colours, no horizontal scroll at 320px, footer link back to https://bookchaowalit.com/.
