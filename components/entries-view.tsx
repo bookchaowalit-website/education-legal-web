@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { EmptyState, Reader, ReaderFoot, ReaderHead, ReaderTop, ResultCount, SearchForm } from "@/components/reader-shell";
 import { entries, families, filterEntries } from "@/lib/legal";
 
@@ -12,6 +12,8 @@ const SOURCE = "https://github.com/bookchaowalit-website/education-legal-web";
 export function EntriesView() {
   const [family, setFamily] = useState("all");
   const [query, setQuery] = useState("");
+  // "Show all" leaves with the empty state it sits in, so it puts focus back in the search field, like Clear.
+  const toolbarRef = useRef<HTMLDivElement>(null);
   const matching = filterEntries(query, "all");
   const shown = filterEntries(query, family);
   const q = query.trim();
@@ -26,7 +28,7 @@ export function EntriesView() {
         />
         <section aria-labelledby="entries">
           <div className="rs-section-head"><h2 id="entries">Entries</h2></div>
-          <div className="rs-toolbar">
+          <div className="rs-toolbar" ref={toolbarRef}>
             <SearchForm label="Search the index" placeholder="Topic, word or phrase" value={query} onValueChange={setQuery} onClear={() => setQuery("")} />
             <ul className="site-chips" aria-label="Filter by topic family">
               {families.map((item) => (
@@ -43,7 +45,7 @@ export function EntriesView() {
             <EmptyState
               title="No entries match"
               headingLevel={3}
-              action={<button type="button" className="rs-plain" onClick={() => { setQuery(""); setFamily("all"); }}>Show all entries</button>}
+              action={<button type="button" className="rs-plain" onClick={() => { setQuery(""); setFamily("all"); toolbarRef.current?.querySelector<HTMLInputElement>('input[type="search"]')?.focus(); }}>Show all entries</button>}
             >
               Try a broader word, or another topic family.
             </EmptyState>
