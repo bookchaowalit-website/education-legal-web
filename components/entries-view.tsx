@@ -48,7 +48,7 @@ export function EntriesView() {
               Try a broader word, or another topic family.
             </EmptyState>
           ) : (
-            <ul className="rs-list">
+            <ul className="rs-list" role="list">
               {shown.map((entry) => (
                 <li key={entry.id}>
                   <article className="rs-entry">
